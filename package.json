@@ -1,7 +1,7 @@
 {
   "name": "git-contrib-calendar",
   "version": "0.0.1",
-  "description": "Git contributions calendar for the terminal (powered by React and Ink)",
+  "description": "Git contributions calendar for the terminal (built with React and Ink)",
   "main": "src/index.js",
   "scripts": {
     "start": "node bin/git-contrib-calendar.js",
