@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/giannisp/git-contrib-calendar#readme",
   "dependencies": {
+    "commander": "^6.0.0",
     "import-jsx": "^4.0.0",
     "ink": "^3.0.3",
     "lodash.groupby": "^4.6.0",
