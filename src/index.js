@@ -5,10 +5,19 @@
 const React = require('react');
 const { render } = require('ink');
 const importJsx = require('import-jsx');
+const cli = require('commander');
 
-const repoPath = process.argv[2] || process.cwd();
-const author = process.argv[3] || undefined;
+const pkg = require('../package.json');
 
-const App = importJsx('./components/App');
+cli
+  .option('-p, --path <path>', 'Git repository path', process.cwd())
+  .option('-a, --author <author>', 'Filter git commits by author', undefined)
+  .action((cmd) => {
+    const App = importJsx('./components/App');
 
-render(<App repoPath={repoPath} author={author} />);
+    render(<App repoPath={cmd.path} author={cmd.author} />);
+  });
+
+cli.version(pkg.version, '-v, --version');
+
+cli.parse(process.argv);
