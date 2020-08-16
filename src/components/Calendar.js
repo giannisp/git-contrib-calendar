@@ -121,7 +121,7 @@ const Calendar = ({ repoPath, author }) => {
 
       <Box marginTop={1}>
         <Text>
-          Total commits: {commits.length}
+          Total commits in the last year: {commits.length}
           <Newline />
           Avg commits per day: {(commits.length / days.length).toFixed(2)}
         </Text>
