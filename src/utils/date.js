@@ -29,7 +29,7 @@ exports.MONTH_NAMES = [
  */
 const getCalendarDays = () => {
   const now = moment();
-  const startDate = now.clone().subtract(1, 'years').isoWeekday(0);
+  const startDate = now.clone().subtract(1, 'years').isoWeekday(7);
 
   const days = [];
   const day = startDate.clone();
