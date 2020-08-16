@@ -20,7 +20,7 @@ const Calendar = ({ repoPath, author }) => {
   React.useEffect(() => {
     const fetchCommits = async () => {
       const options = {
-        '--since': calendarDays[0][0].day.format('YYYY-MM-DD'),
+        '--since': calendarDays[0][0].date,
         '--max-parents': '1', // exclude merge commits
       };
 
@@ -78,8 +78,7 @@ const Calendar = ({ repoPath, author }) => {
             <Text>{dayName}</Text>
           </Box>
 
-          {calendarDays[index].map(({ day }) => {
-            const date = day.format('YYYY-MM-DD');
+          {calendarDays[index].map(({ date }) => {
             const dayCommits = commits.filter((gitCommit) =>
               gitCommit.date.startsWith(date),
             );

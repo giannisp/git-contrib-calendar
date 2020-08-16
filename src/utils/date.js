@@ -39,7 +39,7 @@ const getCalendarDays = () => {
       dayIndex: day.day(),
       monthIndex: day.month(),
       year: day.year(),
-      day: day.clone(),
+      date: day.format('YYYY-MM-DD'),
     });
     day.add(1, 'days');
   }
