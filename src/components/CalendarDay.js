@@ -15,18 +15,18 @@ const { Box, Text } = require('ink');
  */
 const getBackgroundColor = (commitsCount) => {
   if (commitsCount === 0) {
-    return '#cdcdcd';
+    return '#d0d0d0';
   }
 
   if (commitsCount > 0 && commitsCount <= 10) {
-    return '#40c463';
+    return '#00d700';
   }
 
   if (commitsCount > 10 && commitsCount <= 30) {
-    return '#30a14e';
+    return '#00af00';
   }
 
-  return '#216e39';
+  return '#005f00';
 };
 
 const CalendarDay = ({ commitsCount }) => (
