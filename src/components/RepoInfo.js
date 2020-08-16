@@ -4,7 +4,7 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const { Box, Text, Newline } = require('ink');
+const { Text, Newline } = require('ink');
 
 const { getBranch } = require('../services/git');
 
@@ -26,13 +26,11 @@ const RepoInfo = ({ repoPath }) => {
   }
 
   return (
-    <Box marginBottom={1}>
-      <Text>
-        Repository: {repoPath}
-        <Newline />
-        Branch: {branch.current}
-      </Text>
-    </Box>
+    <Text>
+      Repository: {repoPath}
+      <Newline />
+      Branch: {branch.current}
+    </Text>
   );
 };
 

@@ -31,7 +31,9 @@ const App = ({ repoPath, author }) => {
 
   return (
     <Box flexDirection="column">
-      <RepoInfo repoPath={repoPath} />
+      <Box marginBottom={1}>
+        <RepoInfo repoPath={repoPath} />
+      </Box>
 
       <Calendar repoPath={repoPath} author={author} />
     </Box>
