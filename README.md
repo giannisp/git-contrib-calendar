@@ -1,6 +1,6 @@
 # git-contrib-calendar
 
-![screenshot](img/screenshot.jpg)
+![screenshot](img/screenshot.png)
 
 This is an experimental git contributions calendar running on the terminal for any local repository.
 
