@@ -34,6 +34,27 @@ const getMonths = (days) => {
   }));
 };
 
+/**
+ * Return calendar days data with commits count per day.
+ *
+ * @param {Object[]} calendarDays The calendar days data.
+ * @param {Object[]} commits The commits data.
+ *
+ * @return {Object[]} The calendar days data with commit counts.
+ */
+const getCalendarDaysWithCommitCounts = (calendarDays, commits) => {
+  const groupedCommits = groupBy(commits, (commit) =>
+    commit.date.substring(0, 10),
+  );
+
+  return calendarDays.map((day) => ({
+    ...day,
+    commitsCount: groupedCommits[day.date]
+      ? groupedCommits[day.date].length
+      : 0,
+  }));
+};
+
 const Calendar = ({ repoPath, author }) => {
   const [commits, setCommits] = React.useState(null);
   const calendarDays = getCalendarDays();
@@ -61,8 +82,9 @@ const Calendar = ({ repoPath, author }) => {
     return null;
   }
 
-  const groupedCalendarDays = groupBy(calendarDays, 'dayIndex');
-  const months = getMonths(groupedCalendarDays[0]);
+  const days = getCalendarDaysWithCommitCounts(calendarDays, commits);
+  const groupedDays = groupBy(days, 'dayIndex');
+  const months = getMonths(days[0]);
 
   return (
     <Box flexDirection="column">
@@ -91,13 +113,9 @@ const Calendar = ({ repoPath, author }) => {
             <Text>{dayName}</Text>
           </Box>
 
-          {groupedCalendarDays[index].map(({ date }) => {
-            const dayCommits = commits.filter((gitCommit) =>
-              gitCommit.date.startsWith(date),
-            );
-
-            return <CalendarDay key={date} commitsCount={dayCommits.length} />;
-          })}
+          {groupedDays[index].map(({ date, commitsCount }) => (
+            <CalendarDay key={date} commitsCount={commitsCount} />
+          ))}
         </Box>
       ))}
 
@@ -105,8 +123,7 @@ const Calendar = ({ repoPath, author }) => {
         <Text>
           Total commits: {commits.length}
           <Newline />
-          Avg commits per day:{' '}
-          {(commits.length / calendarDays.length).toFixed(2)}
+          Avg commits per day: {(commits.length / days.length).toFixed(2)}
         </Text>
       </Box>
     </Box>
