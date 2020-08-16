@@ -7,6 +7,7 @@ const PropTypes = require('prop-types');
 const { Box, Text, Newline } = require('ink');
 const groupBy = require('lodash.groupby');
 const uniqBy = require('lodash.uniqby');
+const maxBy = require('lodash.maxby');
 const importJsx = require('import-jsx');
 
 const { getLog } = require('../services/git');
@@ -85,6 +86,7 @@ const Calendar = ({ repoPath, author }) => {
   const days = getCalendarDaysWithCommitCounts(calendarDays, commits);
   const groupedDays = groupBy(days, 'dayIndex');
   const months = getMonths(days[0]);
+  const maxCommitsDay = maxBy(days, 'commitsCount');
 
   return (
     <Box flexDirection="column">
@@ -124,6 +126,8 @@ const Calendar = ({ repoPath, author }) => {
           Total commits in the last year: {commits.length}
           <Newline />
           Avg commits per day: {(commits.length / days.length).toFixed(2)}
+          <Newline />
+          Max commits on a single day: {maxCommitsDay.commitsCount}
         </Text>
       </Box>
     </Box>
