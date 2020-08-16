@@ -5,6 +5,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const { Box, Text, Newline } = require('ink');
+const groupBy = require('lodash.groupby');
 const uniqBy = require('lodash.uniqby');
 const importJsx = require('import-jsx');
 
@@ -13,14 +14,34 @@ const { getCalendarDays, DAY_NAMES, MONTH_NAMES } = require('../utils/date');
 
 const CalendarDay = importJsx('./CalendarDay');
 
+/**
+ * Return the months data for display purposes.
+ *
+ * @param {Object[]} days The first day for every week displayed.
+ *
+ * @return {Object[]} The months data.
+ */
+const getMonths = (days) => {
+  return uniqBy(
+    days,
+    (calendarDay) => `${calendarDay.year}-${calendarDay.monthIndex}`,
+  ).map(({ monthIndex, year }) => ({
+    monthIndex,
+    daysCount: days.filter(
+      (calendarDay) =>
+        calendarDay.monthIndex === monthIndex && calendarDay.year === year,
+    ).length,
+  }));
+};
+
 const Calendar = ({ repoPath, author }) => {
   const [commits, setCommits] = React.useState(null);
-  const { totalDays, days: calendarDays } = getCalendarDays();
+  const calendarDays = getCalendarDays();
 
   React.useEffect(() => {
     const fetchCommits = async () => {
       const options = {
-        '--since': calendarDays[0][0].date,
+        '--since': calendarDays[0].date,
         '--max-parents': '1', // exclude merge commits
       };
 
@@ -40,16 +61,8 @@ const Calendar = ({ repoPath, author }) => {
     return null;
   }
 
-  const months = uniqBy(
-    calendarDays[0],
-    (calendarDay) => `${calendarDay.year}-${calendarDay.monthIndex}`,
-  ).map(({ monthIndex, year }) => ({
-    monthIndex,
-    daysCount: calendarDays[0].filter(
-      (calendarDay) =>
-        calendarDay.monthIndex === monthIndex && calendarDay.year === year,
-    ).length,
-  }));
+  const groupedCalendarDays = groupBy(calendarDays, 'dayIndex');
+  const months = getMonths(groupedCalendarDays[0]);
 
   return (
     <Box flexDirection="column">
@@ -78,7 +91,7 @@ const Calendar = ({ repoPath, author }) => {
             <Text>{dayName}</Text>
           </Box>
 
-          {calendarDays[index].map(({ date }) => {
+          {groupedCalendarDays[index].map(({ date }) => {
             const dayCommits = commits.filter((gitCommit) =>
               gitCommit.date.startsWith(date),
             );
@@ -92,7 +105,8 @@ const Calendar = ({ repoPath, author }) => {
         <Text>
           Total commits: {commits.length}
           <Newline />
-          Avg commits per day: {(commits.length / totalDays).toFixed(2)}
+          Avg commits per day:{' '}
+          {(commits.length / calendarDays.length).toFixed(2)}
         </Text>
       </Box>
     </Box>

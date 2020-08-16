@@ -3,7 +3,6 @@
  */
 
 const moment = require('moment');
-const groupBy = require('lodash.groupby');
 
 exports.DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -44,7 +43,7 @@ const getCalendarDays = () => {
     day.add(1, 'days');
   }
 
-  return { totalDays: days.length, days: groupBy(days, 'dayIndex') };
+  return days;
 };
 
 exports.getCalendarDays = getCalendarDays;
