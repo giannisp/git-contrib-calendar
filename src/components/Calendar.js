@@ -85,7 +85,7 @@ const Calendar = ({ repoPath, author }) => {
 
   const days = getCalendarDaysWithCommitCounts(calendarDays, commits);
   const groupedDays = groupBy(days, 'dayIndex');
-  const months = getMonths(days[0]);
+  const months = getMonths(groupedDays[0]);
   const maxCommitsDay = maxBy(days, 'commitsCount');
 
   return (
