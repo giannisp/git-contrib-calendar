@@ -46,8 +46,16 @@ const run = async (pathInput, author) => {
 };
 
 cli
-  .option('-p, --path <path>', 'Git repository path', process.cwd())
-  .option('-a, --author <author>', 'Filter git commits by author', undefined)
+  .option(
+    '-p, --path <path>',
+    'Path to any local git repository (example: -p /path/to/repo)',
+    process.cwd(),
+  )
+  .option(
+    '-a, --author <author>',
+    'Filter git commits by author (example: -a John)',
+    undefined,
+  )
   .action((cmd) => run(cmd.path, cmd.author));
 
 cli.version(pkg.version, '-v, --version');
