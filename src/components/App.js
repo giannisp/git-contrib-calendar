@@ -12,7 +12,7 @@ const Calendar = importJsx('./Calendar');
 
 const App = ({ repoPath, author }) => (
   <Box flexDirection="column">
-    <Box marginBottom={1}>
+    <Box marginTop={1} marginBottom={1}>
       <RepoInfo repoPath={repoPath} />
     </Box>
 
