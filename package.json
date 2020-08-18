@@ -12,7 +12,7 @@
     "url": "git+https://github.com/giannisp/git-contrib-calendar.git"
   },
   "author": "Ioannis Poulakas",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/giannisp/git-contrib-calendar/issues"
   },
