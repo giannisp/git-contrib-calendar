@@ -18,17 +18,20 @@ The interface is inspired by the famous GitHub profile contributions graph, wher
 ## Install
 
 ```
-npm i
+npm i -g git-contrib-calendar
 ```
 
-## Run for any local repository
+## Run for git repository on the current path
 
 ```
-npm start -- -p <target repo path>
+git-contrib-calendar
 ```
 
-## Run for any local repository and filter by author
+## CLI options
 
 ```
-npm start -- -p <target repo path> -a <author>
+-p, --path     Path to any local git repository (example: -p /path/to/repo)
+-a, --author   Filter git commits by author (example: -a John)
+-v, --version  Display the app version
+-h, --help     Display help
 ```
