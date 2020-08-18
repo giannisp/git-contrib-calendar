@@ -2,11 +2,21 @@
   "name": "git-contrib-calendar",
   "version": "0.0.1",
   "description": "Experiemental git contributions calendar for the terminal (built with NodeJS, React and Ink)",
-  "main": "src/index.js",
+  "main": "bin/git-contrib-calendar.js",
+  "bin": {
+    "git-contrib-calendar": "bin/git-contrib-calendar.js"
+  },
   "scripts": {
     "start": "node bin/git-contrib-calendar.js",
     "eslint": "eslint src"
   },
+  "keywords": [
+    "git",
+    "contributions-calendar",
+    "cli",
+    "cli-app",
+    "ink"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/giannisp/git-contrib-calendar.git"
