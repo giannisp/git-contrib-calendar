@@ -6,15 +6,6 @@ This is an experimental git contributions calendar running on the terminal for a
 
 The interface is inspired by the famous GitHub profile contributions graph, where each block represents a single day, and the color shade depends on the number of commits for that particular day.
 
-## Features
-
--   Node 12.x
--   Ink 3.x
--   React 16.x
--   ESLint 7.x
--   Prettier setup
--   Commander CLI
-
 ## Install
 
 ```
@@ -36,3 +27,12 @@ git-contrib-calendar
 -v, --version  Display the app version
 -h, --help     Display help
 ```
+
+## Under the hood
+
+-   Node 12.x
+-   Ink 3.x
+-   React 16.x
+-   ESLint 7.x
+-   Prettier
+-   Commander CLI
