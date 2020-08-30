@@ -13,14 +13,16 @@ const cli = require('commander');
 const pkg = require('../package.json');
 const { isGitRepo } = require('./services/git');
 const { InvalidPathError } = require('./utils/errors');
+const { getDateRange } = require('./utils/date');
 
 /**
  * Run app.
  *
  * @param {String} pathInput The target git repository path.
  * @param {String} author Filter by author.
+ * @param {String} yearInput Filter by year.
  */
-const run = async (pathInput, author) => {
+const run = async (pathInput, author, yearInput) => {
   try {
     const repoPath = path.resolve(pathInput);
     const isRepo = await isGitRepo(repoPath);
@@ -31,9 +33,20 @@ const run = async (pathInput, author) => {
       return;
     }
 
+    const year = yearInput ? parseInt(yearInput, 10) : undefined;
+    const dateRange = getDateRange(year);
+
     const App = importJsx('./components/App');
 
-    render(<App repoPath={repoPath} author={author} />);
+    render(
+      <App
+        repoPath={repoPath}
+        dateFrom={dateRange.from}
+        dateTo={dateRange.to}
+        year={year}
+        author={author}
+      />,
+    );
   } catch (error) {
     if (error instanceof InvalidPathError) {
       console.log(`${error.message}: ${error.data.path}`);
@@ -56,7 +69,12 @@ cli
     'Filter git commits by author (example: -a John)',
     undefined,
   )
-  .action((cmd) => run(cmd.path, cmd.author));
+  .option(
+    '-y, --year <yyyy>',
+    'Display git commits for a specific year (example: -y 2018)',
+    undefined,
+  )
+  .action((cmd) => run(cmd.path, cmd.author, cmd.year));
 
 cli.version(pkg.version, '-v, --version');
 

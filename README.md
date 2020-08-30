@@ -32,6 +32,7 @@ git-contrib-calendar
 ```
 -p, --path     Path to any local git repository (example: -p /path/to/repo)
 -a, --author   Filter git commits by author (example: -a John)
+-y, --year     Display git commits for a specific year (example: -y 2018)
 -v, --version  Display the app version
 -h, --help     Display help
 ```

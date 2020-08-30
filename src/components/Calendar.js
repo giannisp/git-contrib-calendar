@@ -56,14 +56,14 @@ const getCalendarDaysWithCommitCounts = (calendarDays, commits) => {
   }));
 };
 
-const Calendar = ({ repoPath, author }) => {
+const Calendar = ({ repoPath, dateFrom, dateTo, year, author }) => {
   const [commits, setCommits] = React.useState(null);
-  const calendarDays = getCalendarDays();
 
   React.useEffect(() => {
     const fetchCommits = async () => {
       const options = {
-        '--since': calendarDays[0].date,
+        '--since': dateFrom,
+        '--until': dateTo,
         '--max-parents': '1', // exclude merge commits
       };
 
@@ -83,6 +83,7 @@ const Calendar = ({ repoPath, author }) => {
     return null;
   }
 
+  const calendarDays = getCalendarDays(dateFrom, dateTo);
   const days = getCalendarDaysWithCommitCounts(calendarDays, commits);
   const groupedDays = groupBy(days, 'dayIndex');
   const months = getMonths(groupedDays[0]);
@@ -123,7 +124,7 @@ const Calendar = ({ repoPath, author }) => {
 
       <Box marginTop={1}>
         <Text>
-          Total commits in the last year: {commits.length}
+          Total commits in {year || 'the last year'}: {commits.length}
           <Newline />
           Avg commits per day: {(commits.length / days.length).toFixed(2)}
           <Newline />
@@ -136,6 +137,9 @@ const Calendar = ({ repoPath, author }) => {
 
 Calendar.propTypes = {
   repoPath: PropTypes.string.isRequired,
+  dateFrom: PropTypes.string.isRequired,
+  dateTo: PropTypes.string.isRequired,
+  year: PropTypes.number,
   author: PropTypes.string,
 };
 
