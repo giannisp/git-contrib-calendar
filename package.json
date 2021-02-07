@@ -37,7 +37,7 @@
     "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
-    "simple-git": "^2.31.0"
+    "simple-git": "^2.34.2"
   },
   "devDependencies": {
     "eslint": "^7.19.0",
