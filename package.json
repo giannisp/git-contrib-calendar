@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/giannisp/git-contrib-calendar#readme",
   "dependencies": {
-    "commander": "^6.2.1",
+    "commander": "^7.1.0",
     "import-jsx": "^4.0.0",
     "ink": "^3.0.8",
     "lodash.groupby": "^4.6.0",
@@ -37,10 +37,10 @@
     "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
-    "simple-git": "^2.36.1"
+    "simple-git": "^2.37.0"
   },
   "devDependencies": {
-    "eslint": "^7.21.0",
+    "eslint": "^7.22.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.1.0",
