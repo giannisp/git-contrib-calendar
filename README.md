@@ -30,7 +30,7 @@ git-contrib-calendar
 
 ## Under the hood
 
--   Node 14.x
+-   Node 16.x
 -   Ink 3.x
 -   React 16.x
 -   ESLint 7.x
