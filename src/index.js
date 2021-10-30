@@ -4,78 +4,31 @@
 
 /* eslint-disable no-console */
 
-const path = require('path');
+const fs = require('fs');
 const React = require('react');
 const { render } = require('ink');
 const importJsx = require('import-jsx');
-const cli = require('commander');
 
-const pkg = require('../package.json');
-const { isGitRepo } = require('./services/git');
-const { InvalidPathError } = require('./utils/errors');
-const { getDateRange } = require('./utils/date');
+const { initCli, getCliOptions } = require('./utils/cli');
 
-/**
- * Run app.
- *
- * @param {String} pathInput The target git repository path.
- * @param {String} author Filter by author.
- * @param {String} yearInput Filter by year.
- */
-const run = async (pathInput, author, yearInput) => {
-  try {
-    const repoPath = path.resolve(pathInput);
-    const isRepo = await isGitRepo(repoPath);
+initCli();
 
-    if (!isRepo) {
-      console.log('Not a git repository:', repoPath);
+const { repoPath, year, dateRange, author } = getCliOptions();
 
-      return;
-    }
+if (!fs.existsSync(repoPath)) {
+  console.log(`Invalid path: ${repoPath}`);
 
-    const year = yearInput ? parseInt(yearInput, 10) : undefined;
-    const dateRange = getDateRange(year);
+  process.exit();
+}
 
-    const App = importJsx('./components/App');
+const App = importJsx('./components/App');
 
-    render(
-      <App
-        repoPath={repoPath}
-        dateFrom={dateRange.from}
-        dateTo={dateRange.to}
-        year={year}
-        author={author}
-      />,
-    );
-  } catch (error) {
-    if (error instanceof InvalidPathError) {
-      console.log(`${error.message}: ${error.data.path}`);
-
-      return;
-    }
-
-    throw error;
-  }
-};
-
-cli
-  .option(
-    '-p, --path <path>',
-    'Path to any local git repository (example: -p /path/to/repo)',
-    process.cwd(),
-  )
-  .option(
-    '-a, --author <author>',
-    'Filter git commits by author (example: -a John)',
-    undefined,
-  )
-  .option(
-    '-y, --year <yyyy>',
-    'Display git commits for a specific year (example: -y 2018)',
-    undefined,
-  )
-  .action((cmd) => run(cmd.path, cmd.author, cmd.year));
-
-cli.version(pkg.version, '-v, --version');
-
-cli.parse(process.argv);
+render(
+  <App
+    repoPath={repoPath}
+    dateFrom={dateRange.from}
+    dateTo={dateRange.to}
+    year={year}
+    author={author}
+  />,
+);
