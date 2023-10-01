@@ -38,11 +38,11 @@
     "luxon": "^3.4.3",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
-    "simple-git": "^3.19.1"
+    "simple-git": "^3.20.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.5",
-    "eslint": "^8.49.0",
+    "eslint": "^8.50.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.0.0",
