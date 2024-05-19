@@ -30,9 +30,9 @@ git-contrib-calendar
 
 ## Under the hood
 
--   Node 18.x
--   Ink 3.x
--   React 16.x
--   ESLint 7.x
+-   Node
+-   Ink
+-   React
+-   ESLint
 -   Prettier
 -   Commander CLI
